@@ -7,3 +7,7 @@ Use:
 docker compose --env-file ../.env up
 ```
 from within the docker-compose dir
+
+```ruby
+git clone https://github.com
+```
