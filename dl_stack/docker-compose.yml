@@ -8,7 +8,7 @@ networks:
 
 services:
   prowlarr:
-    image: lscr.io/linuxserver/prowlarr:5.1.0-r0-ls397
+    image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
     environment:
       - PUID=${PUID:?error}
@@ -24,7 +24,7 @@ services:
       - qbit
       
   qbittorrent:
-    image: lscr.io/linuxserver/qbittorrent:latest
+    image: lscr.io/linuxserver/qbittorrent:5.1.0
     container_name: qbittorrent
     environment:
       - PUID=${PUID:?error}
