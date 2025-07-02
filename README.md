@@ -11,3 +11,9 @@ from within the docker-compose dir
 ```ruby
 git clone https://github.com/praxlol/jellprax
 ```
+
+Create the networks before launching the compose files
+```ruby
+docker network create --driver bridge starr
+docker network create --driver bridge qbit
+```
