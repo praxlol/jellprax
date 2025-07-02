@@ -24,8 +24,9 @@ Annoyingly, you have to include the /env for compose down use:
 docker compose --env-file ../.env down -d
 ```
 
-#Updating
-##Updating Images
+##Updating
+
+###Updating Images
   All images
 ```ruby
 docker-compose pull
@@ -35,7 +36,7 @@ docker-compose pull
 docker-compose pull qbittorent
 ```
 
-##Updating Containers
+###Updating Containers
   All containers
 ```ruby
 docker-compose up -d
