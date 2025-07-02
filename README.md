@@ -21,7 +21,7 @@ from within the docker-compose dir
 
 Annoyingly, you have to include the /env for compose down use:
 ```ruby
-docker compose --env-file ../.env down -d
+docker compose --env-file ../.env down
 ```
 
 ##Updating
