@@ -1,0 +1,110 @@
+name: media_stack
+
+networks:
+  starr:
+    external: true
+  qbit:
+    external: true
+
+
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    environment:
+      - PUID=${PUID:?error}
+      - PGID=${PGID:?error}
+      - TZ=${TZ:?error}
+    volumes:
+      - ${APPDATA:?error}/jellyfin/config:/config
+      - ${SHARE:?error}/media/:/data/media
+    ports:
+      - 8096:8096
+    devices:
+      - /dev/dri:/dev/dri #Required for jellyfin HW transcoding / QuickSync
+    restart: unless-stopped
+    networks:
+      - starr
+
+  sonarr:
+    image: linuxserver/sonarr
+    container_name: sonarr
+    environment:
+      - PUID=${PUID:?error}
+      - PGID=${PGID:?error}
+      - TZ=${TZ:?error}
+    volumes:
+      - ${APPDATA:?error}/sonarr/config:/config
+      - ${SHARE:?error}:/data
+    ports:
+      - 8989:8989
+    restart: unless-stopped    
+    networks:
+      - starr
+
+
+    radarr:
+    image: linuxserver/radarr
+    container_name: radarr
+    environment:
+      - PUID=${PUID:?error}
+      - PGID=${PGID:?error}
+      - TZ=${TZ:?error}
+    volumes:
+      - ${APPDATA:?error}/radarr/config:/config
+      - ${SHARE:?error}:/data
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+    
+  bazarr:
+    image: linuxserver/bazarr
+    container_name: bazarr
+    environment:
+      - PUID=${PUID:?error}
+      - PGID=${PGID:?error}
+      - TZ=${TZ:?error}
+    volumes:
+      - ${APPDATA:?error}/bazarr/config:/config
+      - ${SHARE:?error}/media:/data/media #optional
+    ports:
+      - 6767:6767
+    restart: unless-stopped
+    networks:
+      - starr
+
+    
+  jellyseerr:
+    image: fallenbagel/jellyseerr:develop
+    container_name: jellyseerr
+    environment:
+      - PUID=${PUID:?error}
+      - PGID=${PGID:?error}
+      - LOG_LEVEL=debug
+      - TZ=${TZ:?error}
+    ports:
+      - 5055:5055
+    volumes:
+      - ${APPDATA:?error}/jellyseerr/config:/app/config
+      - ${SHARE:?error}:/data
+    restart: unless-stopped
+    depends_on:
+      - radarr
+      - sonarr
+    networks:
+      - starr
+
+  homarr:
+    container_name: homarr
+    image: ghcr.io/homarr-labs/homarr:latest
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # Optional, only if you want docker integration
+      - ${APPDATA}/homarr/appdata:/appdata
+    environment:
+      - SECRET_ENCRYPTION_KEY=1f7fc6dc610b0d327dabd3d569a588a6bd0ba62c8ca7f65445060cf6c5339772
+    ports:
+      - '7575:7575'
+    networks:
+      - starr
+      - qbit
