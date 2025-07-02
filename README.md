@@ -1,5 +1,9 @@
 # Basic Jellyfin media stack
 
+```ruby
+git clone https://github.com/praxlol/jellprax
+```
+
 Remember to define the .env file when running both docker composes. use the `--env-file {relative/file/path}` before `up`. This allows you to use one .env file for multiple docker-compose.yml files.
 
 Use: 
@@ -7,10 +11,6 @@ Use:
 docker compose --env-file ../.env up -d
 ```
 from within the docker-compose dir
-
-```ruby
-git clone https://github.com/praxlol/jellprax
-```
 
 Create the networks before launching the compose files
 ```ruby
