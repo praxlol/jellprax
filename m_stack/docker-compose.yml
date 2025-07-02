@@ -43,7 +43,7 @@ services:
       - starr
 
 
-    radarr:
+  radarr:
     image: linuxserver/radarr
     container_name: radarr
     environment:
