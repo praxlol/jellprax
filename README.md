@@ -4,7 +4,7 @@ Remember to define the .env file when running both docker composes. use the `--e
 
 Use: 
 ```ruby
-docker compose --env-file ../.env up
+docker compose --env-file ../.env up -d
 ```
 from within the docker-compose dir
 
