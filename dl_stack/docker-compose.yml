@@ -8,7 +8,7 @@ networks:
 
 services:
   prowlarr:
-    image: lscr.io/linuxserver/prowlarr:latest
+    image: lscr.io/linuxserver/prowlarr:5.1.0-r0-ls397
     container_name: prowlarr
     environment:
       - PUID=${PUID:?error}
